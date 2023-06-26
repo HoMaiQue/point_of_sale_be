@@ -41,14 +41,17 @@ class AccessService {
             userId,
         });
         return {
-            shop: getInfoData({
+            user: getInfoData({
                 fields: ["_id", "name", "email"],
-                object: foundShop,
+                object: foundUser,
             }),
             tokens,
         };
     };
-
+    static logout = async ({ keyStore }) => {
+        const delKey = await KeyTokenService.removeKeyById(keyStore._id);
+        return delKey;
+    };
     static signUp = async ({ name, email, password }) => {
         const holderUser = await userModel.findOne({ email }).lean();
 

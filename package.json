@@ -1,24 +1,24 @@
 {
-  "name": "point_of_sale",
-  "version": "1.0.0",
-  "description": "point of sale",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "dev": "node --watch server.js"
-  },
-  "author": "homaique",
-  "license": "ISC",
-  "dependencies": {
-    "bcrypt": "^5.1.0",
-    "compression": "^1.7.4",
-    "dotenv": "^16.3.1",
-    "express": "^4.18.2",
-    "helmet": "^7.0.0",
-    "jsonwebtoken": "^9.0.0",
-    "lodash": "^4.17.21",
-    "mongoose": "^7.3.1",
-    "morgan": "^1.10.0"
-  }
+    "name": "point_of_sale",
+    "version": "1.0.0",
+    "description": "point of sale",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js",
+        "dev": "node --watch server.js"
+    },
+    "author": "homaique",
+    "license": "ISC",
+    "dependencies": {
+        "bcrypt": "^5.1.0",
+        "compression": "^1.7.4",
+        "dotenv": "^16.3.1",
+        "express": "^4.18.2",
+        "helmet": "^7.0.0",
+        "jsonwebtoken": "^9.0.0",
+        "lodash": "^4.17.21",
+        "mongoose": "^6.10.0",
+        "morgan": "^1.10.0"
+    }
 }

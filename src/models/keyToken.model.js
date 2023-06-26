@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 const { Schema, model } = require("mongoose"); // Erase if already required
 const DOCUMENT_NAME = "Key";
@@ -26,7 +26,7 @@ var keyTokenSchema = new Schema(
         refreshToken: {
             type: String,
             required: true,
-        }
+        },
     },
     {
         timestamps: true,
