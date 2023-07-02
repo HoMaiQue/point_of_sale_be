@@ -28,15 +28,15 @@ class AccessController {
         }).send(res);
     };
 
-    // handleRefreshToken = async (req, res, next) => {
-    //     new SuccessResponse({
-    //         message: "Get token success",
-    //         metaData: await AccessService.handleRefreshToken({
-    //             refreshToken: req.refreshToken,
-    //             user: req.user,
-    //             keyStore: req.keyStore
-    //         }),
-    //     }).send(res);
-    // };
+    handleRefreshToken = async (req, res, next) => {
+        new SuccessResponse({
+            message: "Get token success",
+            metaData: await AccessService.handleRefreshToken({
+                refreshToken: req.body.refreshToken,
+                user: req.user,
+                keyStore: req.keyStore,
+            }),
+        }).send(res);
+    };
 }
 module.exports = new AccessController();

@@ -15,10 +15,10 @@ const HEADER = {
 const createTokenPair = async (payload, publicKey, privateKey) => {
     try {
         const accessToken = await JWT.sign(payload, publicKey, {
-            expiresIn: "2 days",
+            expiresIn: "2days",
         });
         const refreshToken = await JWT.sign(payload, privateKey, {
-            expiresIn: "7 days",
+            expiresIn: "2days",
         });
         JWT.verify(accessToken, publicKey, (err, decode) => {
             if (err) {
@@ -79,7 +79,12 @@ const authentication = asyncHandler(async (req, res, next) => {
         req.user = decodeUser;
         return next();
     } catch (error) {
-        throw error;
+        if (error.name === "TokenExpiredError") {
+            throw new AuthFailureError("Expired access token", 401, {
+                name: "EXPIRED_TOKEN",
+                message: "Expired access token",
+            });
+        }
     }
 });
 const verifyJWT = async (token, keySecret) => {

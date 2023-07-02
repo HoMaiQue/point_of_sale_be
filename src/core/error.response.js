@@ -1,18 +1,12 @@
 "use strict";
-// const ReasonStatusCode = {
-//     FORBIDDEN: "Bad request error",
-//     CONFLICT: "Conflict error"
-// }
-// const StatusCode = {
-//     FORBIDDEN: 403,
-//     CONFLICT: 409
-// }
+
 
 const { StatusCode, ReasonStatusCode } = require("../utils/httpStatusCode");
 class ErrorResponse extends Error {
-    constructor(message, status) {
+    constructor(message, status, data) {
         super(message);
         this.status = status;
+        this.data = data
     }
 }
 class ConflictRequestError extends ErrorResponse {
@@ -21,6 +15,15 @@ class ConflictRequestError extends ErrorResponse {
         statusCode = StatusCode.CONFLICT
     ) {
         super(message, statusCode);
+    }
+}
+class UnprocessableEntityError extends ErrorResponse {
+    constructor(
+        message = ReasonStatusCode.UNPROCESSABLE_ENTITY,
+        statusCode = StatusCode.UNPROCESSABLE_ENTITY,
+        data
+    ) {
+        super(message, statusCode, data);
     }
 }
 class BadRequestError extends ErrorResponse {
@@ -35,9 +38,10 @@ class BadRequestError extends ErrorResponse {
 class AuthFailureError extends ErrorResponse {
     constructor(
         message = ReasonStatusCode.UNAUTHORIZED,
-        statusCode = StatusCode.UNAUTHORIZED
+        statusCode = StatusCode.UNAUTHORIZED,
+        data
     ) {
-        super(message, statusCode);
+        super(message, statusCode, data);
     }
 }
 
@@ -57,5 +61,6 @@ module.exports = {
     BadRequestError,
     AuthFailureError,
     NotFoundError,
-    ForbiddenError
+    ForbiddenError,
+    UnprocessableEntityError
 };
