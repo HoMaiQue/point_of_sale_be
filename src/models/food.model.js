@@ -14,6 +14,20 @@ var foodSchema = Schema(
             type: Number,
             require: true,
         },
+        food_description: {
+            type: String,
+            trim: true,
+            maxLength: 500,
+        },
+        food_image: {
+            type: String,
+            trim: true,
+        },
+        available_quantity: {
+            type: Number,
+            default: 0,
+            min: 0,
+        },
         food_type: { type: Schema.Types.ObjectId, ref: "Category" },
         status: {
             type: String,

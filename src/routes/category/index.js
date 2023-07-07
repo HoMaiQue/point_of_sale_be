@@ -10,8 +10,8 @@ const router = express.Router();
 
 // authentication
 router.use(authentication);
-router.get("/category", asyncHandler(categoryController.getAllCategory));
-router.post("/category", asyncHandler(categoryController.createCategory));
+router.get("/", asyncHandler(categoryController.getAllCategory));
+router.post("/", asyncHandler(categoryController.createCategory));
 
 
 module.exports = router;
