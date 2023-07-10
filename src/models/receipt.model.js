@@ -18,6 +18,12 @@ var receiptSchema = Schema(
             type: Date,
             default: Date.now,
         },
+        paypal_transaction_id: {
+            type: String,
+            required: function () {
+                return this.payment_method === "paypal";
+            },
+        },
     },
     { timestamps: true, collection: COLLECTION_NAME }
 );

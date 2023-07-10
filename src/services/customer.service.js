@@ -7,6 +7,7 @@ const order = require("../models/order.model");
 class customerService {
     static async createCustomer(payload) {
         const newCustomer = await customer.create({ ...payload });
+
         return newCustomer;
     }
 }

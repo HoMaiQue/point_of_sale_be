@@ -14,9 +14,6 @@ var customerSchema = Schema(
             type: String,
             required: true,
         },
-        customer_address: {
-            type: String,
-        },
     },
     { timestamps: true, collection: COLLECTION_NAME }
 );
