@@ -48,7 +48,6 @@ const authentication = asyncHandler(async (req, res, next) => {
     if (!userId) throw new AuthFailureError("invalid request");
 
     const keyStore = await findByUserId(userId);
-
     if (!keyStore) throw new NotFoundError("not found keystore");
     // logout co the truyen accesstoken hoac refresh token
     if (req.headers[HEADER.REFRESH_TOKEN]) {
@@ -72,9 +71,11 @@ const authentication = asyncHandler(async (req, res, next) => {
 
     try {
         const decodeUser = JWT.verify(accessToken, keyStore.publicKey);
+
         if (userId !== decodeUser.userId) {
             throw new AuthFailureError("invalid userId");
         }
+
         req.keyStore = keyStore;
         req.user = decodeUser;
         return next();
@@ -85,6 +86,8 @@ const authentication = asyncHandler(async (req, res, next) => {
                 message: "Expired access token",
             });
         }
+
+        throw new AuthFailureError("Invalid token");
     }
 });
 const verifyJWT = async (token, keySecret) => {

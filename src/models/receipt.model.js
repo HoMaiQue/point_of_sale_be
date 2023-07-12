@@ -1,11 +1,11 @@
 "use strict";
-const { Schema, model } = require("mongoose"); // Erase if already required
+const { Schema, model, Types } = require("mongoose"); // Erase if already required
 const DOCUMENT_NAME = "receipt";
 const COLLECTION_NAME = "receipts";
 // Declare the Schema of the Mongo model
 var receiptSchema = Schema(
     {
-        order_id: { type: mongoose.Schema.Types.ObjectId, ref: "Order" },
+        order_id: { type: Types.ObjectId, ref: "Order" },
         payment_method: {
             type: String,
             required: true,

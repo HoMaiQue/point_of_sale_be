@@ -62,19 +62,19 @@ class AccessService {
 
         if (!foundUser)
             throw new UnprocessableEntityError(
-                "Email hoặc password không đúng",
+                "Email and password do not match",
                 StatusCode.UNPROCESSABLE_ENTITY,
-                { email: "Email hoặc password không đúng" }
+                { email: "Email and password do not match" }
             );
 
-        const match = bcrypt.compare(password, foundUser.password);
-
-        if (!match)
+        const match = await bcrypt.compare(password, foundUser.password);
+        if (!match) {
             throw new UnprocessableEntityError(
-                "Email hoặc password không đúng",
+                "Email and password do not match",
                 StatusCode.UNPROCESSABLE_ENTITY,
-                { password: "Email hoặc password không đúng" }
+                { password: "Email and password do not match" }
             );
+        }
 
         const privateKey = crypto.randomBytes(64).toString("hex");
         const publicKey = crypto.randomBytes(64).toString("hex");
