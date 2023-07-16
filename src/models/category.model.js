@@ -10,7 +10,12 @@ var categorySchema = Schema(
             trim: true,
             maxLength: 150,
         },
+        category_image: {
+            type: String,
+            trim: true,
+        },
     },
+
     { timestamps: true, collection: COLLECTION_NAME }
 );
 

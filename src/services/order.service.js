@@ -14,6 +14,15 @@ class orderService {
         const newOrder = await order.create({ ...payload });
         return newOrder;
     }
+    static async getAllOrder() {
+        const orderList = await order
+            .find({})
+            .populate("customer_id", "customer_name customer_phone")
+            .populate("items.food_id", "food_name food_image")
+            .select(unGetSelectData(["__v"]))
+            .lean();
+        return orderList;
+    }
 }
 
 module.exports = orderService;
