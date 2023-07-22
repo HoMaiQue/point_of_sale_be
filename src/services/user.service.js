@@ -1,18 +1,15 @@
 "use strict";
 
-const userModel = require("../models/user.model");
+const { unGetSelectData, convertToObjectIdMongodb } = require("../utils");
+const { NotFoundError, BadRequestError } = require("../core/error.response");
+const user = require("../models/user.model");
+class UserService {
+    static async getAllUser() {
+        return await user
+            .find({})
+            .select(unGetSelectData(["__v", "password"]))
+            .lean();
+    }
+}
 
-const findByEmail = async ({
-    email,
-    select = {
-        email: 1,
-        password: 1,
-        name: 1,
-        status: 1,
-        roles: 1,
-    },
-}) => {
-    return userModel.findOne({ email }).select(select).lean();
-};
-
-module.exports = { findByEmail };
+module.exports = UserService;

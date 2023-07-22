@@ -6,7 +6,6 @@ class UploadController {
     uploadSingleFile = async (req, res) => {
         if (req.file) {
             const file = req.file.path;
-
             cloudinary
                 .uploadSingle(file)
                 .then((result) => {

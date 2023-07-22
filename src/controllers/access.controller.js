@@ -10,9 +10,6 @@ class AccessController {
         new Created({
             message: "Register Ok",
             metaData: await AccessService.signUp(req.body),
-            options: {
-                limit: 10,
-            },
         }).send(res);
     };
 

@@ -7,7 +7,7 @@ const {
     AuthFailureError,
     UnprocessableEntityError,
 } = require("../core/error.response");
-const { findByEmail } = require("./user.service");
+const { findByEmail } = require("../models/repo/user.repo");
 const { createTokenPair } = require("../auth/authUtils");
 const KeyTokenService = require("./keyToken.service");
 const { getInfoData } = require("../utils");
@@ -94,7 +94,7 @@ class AccessService {
         });
         return {
             user: getInfoData({
-                fields: ["_id", "name", "email"],
+                fields: ["_id", "name", "email", "roles"],
                 object: foundUser,
             }),
             tokens,
@@ -104,7 +104,7 @@ class AccessService {
         const delKey = await KeyTokenService.removeKeyById(keyStore._id);
         return delKey;
     };
-    static signUp = async ({ name, email, password }) => {
+    static signUp = async ({ name, email, password, avatar }) => {
         const holderUser = await userModel.findOne({ email }).lean();
 
         if (holderUser) throw new BadRequestError("User already registered");
@@ -115,36 +115,10 @@ class AccessService {
             email,
             password: passwordHash,
             roles: [userRole.STAFF],
+            avatar: avatar
         });
 
-        if (newUser) {
-            const privateKey = crypto.randomBytes(64).toString("hex");
-            const publicKey = crypto.randomBytes(64).toString("hex");
-
-            const keyStore = await KeyTokenService.createKeyToken({
-                userId: newUser._id,
-                publicKey,
-                privateKey,
-            });
-
-            if (!keyStore) throw new BadRequestError("publicKey error");
-
-            const tokens = await createTokenPair(
-                { userId: newUser._id, email },
-                publicKey,
-                privateKey
-            );
-            return {
-                code: 201,
-                metadata: {
-                    user: getInfoData({
-                        fields: ["_id", "name", "email"],
-                        object: newUser,
-                    }),
-                    tokens,
-                },
-            };
-        }
+       return newUser;
     };
 }
 module.exports = AccessService;

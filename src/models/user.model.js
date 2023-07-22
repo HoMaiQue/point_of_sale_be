@@ -24,6 +24,10 @@ var userSchema = Schema(
             type: String,
             required: true,
         },
+        avatar: {
+            type: String,
+            trim: true,
+        },
         roles: {
             type: Array,
             default: [],
