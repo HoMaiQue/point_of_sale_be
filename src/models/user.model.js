@@ -1,5 +1,5 @@
 "use strict";
-const {Schema, model} = require("mongoose"); // Erase if already required
+const { Schema, model } = require("mongoose"); // Erase if already required
 const DOCUMENT_NAME = "User";
 const COLLECTION_NAME = "users";
 // Declare the Schema of the Mongo model
@@ -35,6 +35,6 @@ var userSchema = Schema(
     },
     { timestamps: true, collection: COLLECTION_NAME }
 );
-
+userSchema.index({ name: "text", email: "text" });
 //Export the model
 module.exports = model(DOCUMENT_NAME, userSchema);
