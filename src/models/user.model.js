@@ -32,6 +32,10 @@ var userSchema = Schema(
             type: Array,
             default: [],
         },
+
+        dateOfBirth: {
+            type: Date,
+        },
     },
     { timestamps: true, collection: COLLECTION_NAME }
 );

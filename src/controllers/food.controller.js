@@ -7,7 +7,7 @@ class FoodController {
             message: "Create food successfully",
             metaData: await FoodService.createFood({
                 ...req.body,
-                userId: req.user.userId
+                userId: req.user.userId,
             }),
         }).send(res);
     };
@@ -17,6 +17,12 @@ class FoodController {
             metaData: await FoodService.getFoodByCategoryId({
                 categoryId: req.params.categoryId,
             }),
+        }).send(res);
+    };
+    getAllFood = async (req, res, next) => {
+        new SuccessResponse({
+            message: "Get all food successfully",
+            metaData: await FoodService.getAllFood(),
         }).send(res);
     };
 }

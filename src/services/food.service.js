@@ -27,6 +27,23 @@ class FoodService {
             })
             .select(unGetSelectData(["__v"]));
     }
+    static async getAllFood() {
+        return await food.find({}).populate("food_type").lean();
+    }
+    static async changeStatusUser({ foodId }) {
+        const foundFood = await food.findById(foodId);
+        if (!foundFood) {
+            throw new NotFoundError("Food not exist");
+        }
+        const { status } = foundFood;
+        if (status === "active") {
+            foundFood.status = "inactive";
+        } else {
+            foundFood.status = "active";
+        }
+        const { modifiedCount } = await foundFood.update(foundFood);
+        return modifiedCount;
+    }
 }
 
 module.exports = FoodService;

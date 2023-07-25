@@ -104,7 +104,14 @@ class AccessService {
         const delKey = await KeyTokenService.removeKeyById(keyStore._id);
         return delKey;
     };
-    static signUp = async ({ name, email, password, avatar }) => {
+    static signUp = async ({
+        name,
+        email,
+        password,
+        avatar,
+        role,
+        date_of_birth,
+    }) => {
         const holderUser = await userModel.findOne({ email }).lean();
 
         if (holderUser) throw new BadRequestError("User already registered");
@@ -114,11 +121,12 @@ class AccessService {
             name,
             email,
             password: passwordHash,
-            roles: [userRole.STAFF],
-            avatar: avatar
+            roles: [role],
+            avatar: avatar,
+            dateOfBirth: date_of_birth,
         });
 
-       return newUser;
+        return newUser;
     };
 }
 module.exports = AccessService;

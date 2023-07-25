@@ -9,5 +9,6 @@ const router = express.Router();
 router.use(authentication);
 router.post("", asyncHandler(foodController.createFood));
 router.get("/:categoryId", asyncHandler(foodController.getFoodByCategoryId));
+router.get("", asyncHandler(foodController.getAllFood));
 
 module.exports = router;
