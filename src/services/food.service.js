@@ -24,13 +24,18 @@ class FoodService {
         return await food
             .find({
                 food_type: convertToObjectIdMongodb(categoryId),
+                status: "active",
             })
             .select(unGetSelectData(["__v"]));
     }
     static async getAllFood() {
-        return await food.find({}).populate("food_type").lean();
+        return await food
+            .find({})
+            .sort({ _id: -1 })
+            .populate("food_type")
+            .lean();
     }
-    static async changeStatusUser({ foodId }) {
+    static async changeStatusFood({ foodId }) {
         const foundFood = await food.findById(foodId);
         if (!foundFood) {
             throw new NotFoundError("Food not exist");
@@ -43,6 +48,25 @@ class FoodService {
         }
         const { modifiedCount } = await foundFood.update(foundFood);
         return modifiedCount;
+    }
+    static async searchFood({ keySearch }) {
+        const regexSearch = new RegExp(keySearch);
+
+        const result = await food
+            .find(
+                {
+                    $text: { $search: regexSearch },
+                },
+                { score: { $meta: "textScore" } }
+            )
+            .populate("food_type")
+            .sort({ score: { $meta: "textScore" } })
+            .lean();
+        return result;
+    }
+    static async updateFood({ foodId, payload }) {
+        const newPayload = removeUndefinedObject(payload);
+        return await user.findByIdAndUpdate(foodId, newPayload, { new: true });
     }
 }
 

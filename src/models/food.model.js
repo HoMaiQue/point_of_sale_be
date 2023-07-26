@@ -37,6 +37,6 @@ var foodSchema = Schema(
     },
     { timestamps: true, collection: COLLECTION_NAME }
 );
-
+foodSchema.index({ food_name: "text", food_price: "text" });
 //Export the model
 module.exports = model(DOCUMENT_NAME, foodSchema);

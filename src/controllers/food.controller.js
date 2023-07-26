@@ -25,6 +25,29 @@ class FoodController {
             metaData: await FoodService.getAllFood(),
         }).send(res);
     };
+    changeStatusFood = async (req, res, next) => {
+        new SuccessResponse({
+            message: "Change status food successfully",
+            metaData: await FoodService.changeStatusFood({
+                foodId: req.body.foodId,
+            }),
+        }).send(res);
+    };
+    searchFood = async (req, res, next) => {
+        new SuccessResponse({
+            message: "Search food successfully",
+            metaData: await FoodService.searchFood(req.params),
+        }).send(res);
+    };
+    updateFood = async (req, res, next) => {
+        new SuccessResponse({
+            message: "Update food successfully",
+            metaData: await FoodService.updateFood({
+                foodId: req.params.foodId,
+                payload: { ...req.body },
+            }),
+        }).send(res);
+    };
 }
 
 module.exports = new FoodController();
