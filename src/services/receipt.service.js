@@ -16,6 +16,36 @@ class ReceiptService {
 
         return newReceipt;
     }
+
+    static async revenueByDay({ startDate, endDate }) {
+        console.log(123);
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+
+        const revenueList = await receipt.aggregate([
+            {
+                $match: {
+                    payment_date: { $gte: start, $lte: end },
+                },
+            },
+            {
+                $group: {
+                    _id: {
+                        $dateToString: {
+                            format: "%d-%m-%Y",
+                            date: "$payment_date",
+                        },
+                    },
+
+                    totalRevenue: { $sum: "$amount" },
+                },
+            },
+            {
+                $sort: { _id: 1 },
+            },
+        ]);
+        return revenueList;
+    }
 }
 
 module.exports = ReceiptService;

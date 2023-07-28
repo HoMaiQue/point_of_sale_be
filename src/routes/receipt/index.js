@@ -8,5 +8,6 @@ const router = express.Router();
 // authentication
 router.use(authentication);
 router.post("", asyncHandler(receiptController.createReceipt));
+router.get("/revenue", asyncHandler(receiptController.revenue));
 
 module.exports = router;

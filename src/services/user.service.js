@@ -11,7 +11,7 @@ class UserService {
     static async getAllUser() {
         return await user
             .find({})
-            .select(unGetSelectData(["__v", "password"]))
+            .select(unGetSelectData(["__v"]))
             .lean();
     }
     static async changeStatusUser({ userId }) {
@@ -29,12 +29,15 @@ class UserService {
         return modifiedCount;
     }
     static async updateUser({ userId, payload }) {
-        const newPayload = removeUndefinedObject(payload);
+        const newPayload = removeUndefinedObject({
+            ...payload,
+            roles: [payload.role],
+        });
         return await user.findByIdAndUpdate(userId, newPayload, { new: true });
     }
     static async searchUser({ keySearch }) {
         const regexSearch = new RegExp(keySearch);
-        
+
         const result = await user
             .find(
                 {

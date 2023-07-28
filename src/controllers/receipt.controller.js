@@ -10,6 +10,15 @@ class ReceiptController {
             }),
         }).send(res);
     };
+    revenue = async (req, res, next) => {
+        new SuccessResponse({
+            message: "Get revenue successfully",
+            metaData: await ReceiptService.revenueByDay({
+                startDate: req.query.startDate,
+                endDate: req.query.endDate,
+            }),
+        }).send(res);
+    };
 }
 
 module.exports = new ReceiptController();
