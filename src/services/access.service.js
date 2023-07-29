@@ -92,9 +92,10 @@ class AccessService {
             publicKey,
             userId,
         });
+        console.log("123",foundUser)
         return {
             user: getInfoData({
-                fields: ["_id", "name", "email", "roles"],
+                fields: ["_id", "name", "email", "roles", "avatar"],
                 object: foundUser,
             }),
             tokens,

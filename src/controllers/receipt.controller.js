@@ -19,6 +19,12 @@ class ReceiptController {
             }),
         }).send(res);
     };
+    getOverview = async (req, res, next) => {
+        new SuccessResponse({
+            message: "Get overview successfully",
+            metaData: await ReceiptService.getOverview(),
+        }).send(res);
+    };
 }
 
 module.exports = new ReceiptController();

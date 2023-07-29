@@ -11,6 +11,7 @@ class UserService {
     static async getAllUser() {
         return await user
             .find({})
+            .sort({ _id: -1 })
             .select(unGetSelectData(["__v"]))
             .lean();
     }
@@ -49,6 +50,7 @@ class UserService {
             .lean();
         return result;
     }
+   
 }
 
 module.exports = UserService;

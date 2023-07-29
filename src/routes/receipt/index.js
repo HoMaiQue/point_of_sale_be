@@ -9,5 +9,6 @@ const router = express.Router();
 router.use(authentication);
 router.post("", asyncHandler(receiptController.createReceipt));
 router.get("/revenue", asyncHandler(receiptController.revenue));
+router.get("/overview", asyncHandler(receiptController.getOverview));
 
 module.exports = router;

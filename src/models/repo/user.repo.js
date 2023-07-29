@@ -11,6 +11,7 @@ const findByEmail = async ({
         name: 1,
         status: 1,
         roles: 1,
+        avatar: 1
     },
 }) => {
     return user.findOne({ email }).select(select).lean();
