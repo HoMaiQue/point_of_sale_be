@@ -92,7 +92,7 @@ class AccessService {
             publicKey,
             userId,
         });
-        console.log("123",foundUser)
+        console.log("123", foundUser);
         return {
             user: getInfoData({
                 fields: ["_id", "name", "email", "roles", "avatar"],
@@ -122,7 +122,7 @@ class AccessService {
             name,
             email,
             password: passwordHash,
-            roles: ["STAFF"],
+            roles: [role || "STAFF"],
             avatar: avatar,
             dateOfBirth: date_of_birth,
         });
