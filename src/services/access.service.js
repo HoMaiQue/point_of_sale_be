@@ -122,7 +122,7 @@ class AccessService {
             name,
             email,
             password: passwordHash,
-            roles: [role],
+            roles: ["STAFF"],
             avatar: avatar,
             dateOfBirth: date_of_birth,
         });
