@@ -48,7 +48,7 @@ const authentication = asyncHandler(async (req, res, next) => {
     if (!userId) throw new AuthFailureError("invalid request");
 
     const keyStore = await findByUserId(userId);
-    if (!keyStore) throw new NotFoundError("not found keystore");
+    if (!keyStore) throw new AuthFailureError("not found keystore");
     // logout co the truyen accesstoken hoac refresh token
     if (req.headers[HEADER.REFRESH_TOKEN]) {
         try {
