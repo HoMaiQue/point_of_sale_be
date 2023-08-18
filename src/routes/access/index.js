@@ -7,6 +7,9 @@ const router = express.Router();
 
 router.post("/user/signup", asyncHandler(accessController.signUp));
 router.post("/user/login", asyncHandler(accessController.logIn));
+router.get("/prevent-sleep", (req, res) => {
+    return res.json("prevent sleep");
+});
 
 // authentication
 router.use(authentication);
